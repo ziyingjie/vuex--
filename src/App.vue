@@ -1,28 +1,37 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    123
+    <p>state:{{ this.$store.state.num }}</p>
+    <p>getter:{{ this.$store.getters.getNum }}</p>
+    <button @click="add">+1</button>
+    <button @click="asyncAdd">异步+2</button>
+    <son></son>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
-
+import son from './components/son.vue'
 export default {
-  name: "App",
-  components: {
-    HelloWorld,
+  beforeCreate() {
+    console.log('父beforeCreate');
+  },
+  created() {
+    console.log('父created');
+  },
+  beforeMount() {
+    console.log('父beforeMount');
+  },
+  mounted() {
+    console.log('父mounted');
+  },
+  components: { son },
+  methods: {
+    add() {
+      this.$store.commit("incre", 1);
+    },
+    asyncAdd() {
+      this.$store.dispatch("asyncIncre", 2);
+    },
   },
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
